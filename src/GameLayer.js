@@ -16,17 +16,17 @@ var GameLayer = cc.Layer.extend({
 		bgsprite.setPosition(size.width / 2, size.height / 2);
 		this.addChild(bgsprite, kZindexBG);
 
-		this._floor = cc.Sprite.create(res.FLOOR_IMAGE);
-		this._floor.setPosition(0, 0);
-		this._floor.setAnchorPoint(0,0);
-		this.addChild(this._floor, kZindexFloor);
+		this.floor = cc.Sprite.create(res.FLOOR_IMAGE);
+		this.floor.setPosition(0, 0);
+		this.floor.setAnchorPoint(0,0);
+		this.addChild(this.floor, kZindexFloor);
 
-		this._robin = new RobinSprite();
-		this._robin.x = kRobinStartX;
-		this._robin.y = size.height / 2;
-		this._robin.topOfScreen = size.height;
-		this._robin.Reset();
-		this.addChild(this._robin, kZindexRobin);
+		this.spriteGirl = new RobinSprite();
+		this.spriteGirl.x = kRobinStartX;
+		this.spriteGirl.y = size.height / 2;
+		this.spriteGirl.topOfScreen = size.height;
+		this.spriteGirl.Reset();
+		this.addChild(this.spriteGirl, kZindexRobin);
 
 		this.CreateClouds();
 	},
@@ -46,12 +46,12 @@ var GameLayer = cc.Layer.extend({
 	},
 
 	onTick:function(dt) {
-		if(this._robin.y < this._floor.y / 2) {
-			this._robin.Reset();
+		if(this.spriteGirl.y < this.floor.y / 2) {
+			this.spriteGirl.Reset();
 			this.StopClouds();
-			this._robin.y = cc.director.getWinSize().height / 2;
+			this.spriteGirl.y = cc.director.getWinSize().height / 2;
 		}
-		this._robin.UpdateRobin(dt);
+		this.spriteGirl.UpdateRobin(dt);
 	},
 
 	onTouchBegan:function(touch, event) {
@@ -59,11 +59,11 @@ var GameLayer = cc.Layer.extend({
 		var tar = event.getCurrentTarget();
 		console.log('onTouchBegan:' + tp.x.toFixed(2) + ','  + tp.y.toFixed(2));
 
-		if(tar._robin.state == kRobinStateStopped) {
-			tar._robin.state = kRobinStateMoving;
+		if(tar.spriteGirl.state == kRobinStateStopped) {
+			tar.spriteGirl.state = kRobinStateMoving;
 			tar.StartClouds();
 		}
-		tar._robin.SetStartSpeed();
+		tar.spriteGirl.SetStartSpeed();
 
 		return false;
 	},
