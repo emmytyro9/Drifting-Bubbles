@@ -17,6 +17,7 @@
 		"src/Background.js",
 		"src/Player.js",
     "src/cloud.js",
-    "src/Bubbles.js"
+    "src/Bubbles.js",
+    "src/Flower.js"
     ]
 }

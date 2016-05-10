@@ -35,7 +35,6 @@ var CloudSprite = cc.Sprite.extend({
 
 		var actionMove = cc.moveTo(time, destination);
 		var actionMoveDone = cc.callFunc(this.ReachedDestination, this);
-
 		this.runAction(cc.sequence(actionMove, actionMoveDone));
 
 	}

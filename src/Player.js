@@ -7,6 +7,7 @@ var Sprite = cc.Sprite.extend( {
 	ctor: function (spriteFrameName) {
 		this._super(spriteFrameName);
 		this.movingAction = this.PlayerAnimation();
+    this.directionReal = 0
 	},
 
 	PlayerAnimation: function() {
