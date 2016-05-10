@@ -16,6 +16,7 @@
 		"src/GameLayer.js",
 		"src/Background.js",
 		"src/Player.js",
-    "src/cloud.js"
+    "src/cloud.js",
+    "src/Bubbles.js"
     ]
 }

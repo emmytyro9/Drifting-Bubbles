@@ -1,6 +1,6 @@
 var Sprite = cc.Sprite.extend( {
 
-	state: kRobinStateStopped,
+	state: 0,
 	speedY: 0.0,
 	topOfScreen: 0,
 
