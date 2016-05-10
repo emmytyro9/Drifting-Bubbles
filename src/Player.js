@@ -1,4 +1,4 @@
-var RobinSprite = cc.Sprite.extend( {
+var Sprite = cc.Sprite.extend( {
 
 	state: kRobinStateStopped,
 	speedY: 0.0,
@@ -17,8 +17,8 @@ var RobinSprite = cc.Sprite.extend( {
 	   return cc.RepeatForever.create( cc.Animate.create( animation ));
 	},
 
-	UpdateRobin: function(dt) {
-		if(this.state == kRobinStateMoving) {
+	UpdateSprite: function(dt) {
+		if(this.state == 1) {
 			this.runAction(this.movingAction) ;
 
 			var distance = 0;
@@ -38,13 +38,13 @@ var RobinSprite = cc.Sprite.extend( {
 	},
 
 	Reset: function() {
-		this.state = kRobinStateStopped;
+		this.state = 0 ;
 		//this.initWithFile('images/1.png') ;
-		this.SetStartSpeed();
+		this.SetStartSpeed() ;
 	},
 
 	SetStartSpeed: function() {
-		this.speedY = kRobinStartSpeedY;
+		this.speedY = 300 ;
 	},
 
 });

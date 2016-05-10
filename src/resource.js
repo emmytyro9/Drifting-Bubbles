@@ -5,11 +5,11 @@ for (var i in res) {
     g_resources.push(res[i]);
 }
 
-res.BG_IMAGE = 'res/images/BG.png';
-res.FLOOR_IMAGE = 'res/images/Floor.png';
-res.TREE_IMAGE = 'res/images/Tree.png';
-res.CLOUD_IMAGE = 'res/images/Cloud.png';
-res.MOUNT_IMAGE = 'res/images/Mount.png';
+res.BG_IMAGE = 'res/images/BG-hD.png';
+res.FLOOR_IMAGE = 'res/images/Floor-HD.png';
+res.TREE_IMAGE = 'res/images/tree.png';
+res.CLOUD_IMAGE = 'res/images/Cloud-HD.png';
+res.MOUNT_IMAGE = 'res/images/m1.png';
 
 
 
