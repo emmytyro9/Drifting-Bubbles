@@ -19,7 +19,6 @@
     "src/cloud.js",
     "src/Bubbles.js",
     "src/Flower.js",
-    "src/GameOver.js",
     "src/StartMenu.js",
     "src/HowToPlay.js"
     ]
