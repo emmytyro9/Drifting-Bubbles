@@ -4,8 +4,8 @@ var Sprite = cc.Sprite.extend( {
 	speedY: 0.0,
 	topOfScreen: 0,
 
-	ctor: function (spriteFrameName) {
-		this._super(spriteFrameName);
+	ctor: function () {
+		this._super();
 		this.movingAction = this.PlayerAnimation();
     this.directionReal = 0
 	},
@@ -40,7 +40,6 @@ var Sprite = cc.Sprite.extend( {
 
 	Reset: function() {
 		this.state = 0 ;
-		//this.initWithFile('images/1.png') ;
 		this.SetStartSpeed() ;
 	},
 
