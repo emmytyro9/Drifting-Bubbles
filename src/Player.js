@@ -21,7 +21,6 @@ var Sprite = cc.Sprite.extend( {
 	UpdateSprite: function(dt) {
 		if(this.state == 1) {
 			this.runAction(this.movingAction) ;
-
 			var distance = 0;
 			var newSpeed = 0;
 

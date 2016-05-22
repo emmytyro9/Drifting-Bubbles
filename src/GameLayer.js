@@ -30,7 +30,11 @@ var GameLayer = cc.Layer.extend({
 
 		this.flower = new Flower();
 		this.Create();
-		this.text = cc.LabelTTF.create("Press 'R' to Restart", "Cambria", 72) ;
+
+		this.textField5 = cc.LabelTTF.create("Press left-mouse to start", "Cambria", 72) ;
+		this.textField5.setPosition( cc.p( 500, 460));
+		this.textField5.setColor( new cc.color(255,255,255));
+		this.addChild(this.textField5 , 1 );
 	},
 
 	isHitBubble: function() {
@@ -95,10 +99,7 @@ var GameLayer = cc.Layer.extend({
 			event: cc.EventListener.TOUCH_ONE_BY_ONE,
 			swallowTouches: true,
 			onTouchBegan: this.onTouchBegan,
-			onTouchMoved: this.onTouchMoved,
-			onTouchEnded: this.onTouchEnded
 		}, this);
-
 		this.schedule(this.onTick);
 	},
 
@@ -115,7 +116,6 @@ var GameLayer = cc.Layer.extend({
 	onTouchBegan:function(touch, event) {
 		var tp = touch.getLocation();
 		var target = event.getCurrentTarget();
-
 		if(target.spriteGirl.state == 0) {
 			target.spriteGirl.state = 1;
 			target.StartClouds();
@@ -175,6 +175,7 @@ var GameLayer = cc.Layer.extend({
 	},
 
 	StartClouds: function() {
+		this.textField5.setVisible(false);
 		for (var i = 0 ; i < ArrayClouds.length ; ++i) {
 			ArrayClouds[i].Start();
 		}

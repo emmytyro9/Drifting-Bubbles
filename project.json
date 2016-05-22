@@ -20,7 +20,6 @@
     "src/Bubbles.js",
     "src/Flower.js",
     "src/StartMenu.js",
-    "src/HowToPlay.js",
-    "src/GameOver.js"
+    "src/HowToPlay.js"
     ]
 }
