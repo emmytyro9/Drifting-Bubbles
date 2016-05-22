@@ -5,34 +5,33 @@ var CloudSprite = cc.Sprite.extend({
 	xOffset: 0,
 
 	ctor: function(spriteFrameName) {
-		this._super(spriteFrameName);
+						this._super(spriteFrameName);
 	},
 
 	SetSpeedAndWidth: function(pps, width, Xoffset) {
-		this.screenWidth = width;
-		this.pixelsPerSecond = pps;
-		this.xOffset = Xoffset;
+						this.screenWidth = width;
+						this.pixelsPerSecond = pps;
+						this.xOffset = Xoffset;
 	},
 
 	Stop: function() {
-		this.stopAllActions();
+						this.stopAllActions();
 	},
 
 	ReachedDestination: function(sender) {
-		sender.x = sender.xOffset + sender.screenWidth;
-		sender.Start();
+						sender.x = sender.xOffset + sender.screenWidth;
+						sender.Start();
 	},
 
 	Start: function() {
-		this.stopAllActions();
-		var currentX = this.x;
-		var distance = currentX - -(this.xOffset);
-		var time = distance / this.pixelsPerSecond;
-		var destination = cc.p(-this.xOffset, this.y);
-		var actionMove = cc.moveTo(time, destination);
-		var actionMoveDone = cc.callFunc(this.ReachedDestination, this);
-		this.runAction(cc.sequence(actionMove, actionMoveDone));
-
+						this.stopAllActions();
+						var currentX = this.x;
+						var distance = currentX - -(this.xOffset);
+						var time = distance / this.pixelsPerSecond;
+						var destination = cc.p(-this.xOffset, this.y);
+						var actionMove = cc.moveTo(time, destination);
+						var actionMoveDone = cc.callFunc(this.ReachedDestination, this);
+						this.runAction(cc.sequence(actionMove, actionMoveDone));
 	},
 
 	});
