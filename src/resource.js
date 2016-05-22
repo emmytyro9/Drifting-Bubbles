@@ -15,9 +15,10 @@ res.FLOOR_IMAGE = 'res/images/Floor-HD.png';
 res.TREE_IMAGE = 'res/images/tree.png';
 res.CLOUD_IMAGE = 'res/images/Cloud-HD.png';
 res.MOUNT_IMAGE = 'res/images/m1.png';
-res.OVER = 'res/images/over.png' ;
+res.OVER = 'res/images/GameOver.png' ;
 res.HTP = 'res/images/htpBG.png' ;
 res.PLAYB = 'res/images/playbutt.png' ;
 res.START = 'res/images/start.png'
+
 
 var GRAVITY = -620;

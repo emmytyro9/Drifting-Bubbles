@@ -40,4 +40,9 @@ var Bubbles = cc.Sprite.extend({
         return ((Math.abs(myPos.x - oPos.x) <= 40) && (Math.abs(myPos.y - oPos.y) <= 40));
     },
 
+    StopBubbles: function() {
+      this.stopAllActions();
+      this.NewPosition();
+    }
+
   });

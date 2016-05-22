@@ -1,20 +1,17 @@
 var ArrayClouds = [];
 var ArrayBubble = [];
 var ArrayFlower = [];
-var randomX;
-var randomY;
-var randomSpeed;
 
 var GameLayer = cc.Layer.extend({
 
 	init:function() {
 		this._super();
+		 cc.audioEngine.playMusic('res/Musics/HappyWhistling.mp3', true)
 		this.scheduleUpdate();
 		this.addKeyboardHandlers();
 		var size = cc.director.getWinSize();
 		this.schedule(this.CreateBubbles,1,Infinity,1);
 		var check = true ;
-
 		var bgsprite = cc.Sprite.create(res.BG_IMAGE);
 		bgsprite.setPosition(size.width / 2, size.height / 2);
 		this.addChild(bgsprite, 0);
@@ -32,9 +29,8 @@ var GameLayer = cc.Layer.extend({
 		this.addChild(this.spriteGirl, 100);
 
 		this.flower = new Flower();
-
-
 		this.Create();
+		this.text = cc.LabelTTF.create("Press 'R' to Restart", "Cambria", 72) ;
 	},
 
 	isHitBubble: function() {
@@ -68,7 +64,7 @@ var GameLayer = cc.Layer.extend({
 		for (var i = 0 ; i < ArrayBubble.length ; i++){
 				var close = this.closeTo (this.spriteGirl, ArrayBubble[i]) ;
 			if(close){
-				cc.director.pause() ;
+				cc.director.pause();
 				this.EndGame();
 			}
 		}
@@ -83,7 +79,7 @@ var GameLayer = cc.Layer.extend({
 	closeTo: function (sp , obj) {
 		var myPos = sp.getPosition();
 		var oPos = obj.getPosition();
-		return ((Math.abs(myPos.x - oPos.x) <= 100) && (Math.abs(myPos.y - oPos.y) <= 100));
+		return ((Math.abs(myPos.x - oPos.x) <= 60) && (Math.abs(myPos.y - oPos.y) <= 60));
 	},
 
 	update: function(dt) {
@@ -110,9 +106,10 @@ var GameLayer = cc.Layer.extend({
 		if(this.spriteGirl.y < this.floor.y / 2) {
 			this.spriteGirl.Reset();
 			this.StopClouds();
-			this.spriteGirl.y = cc.director.getWinSize().height / 2;
+			cc.director.pause();
+			this.EndGame();
 		}
-		this.spriteGirl.UpdateSprite(dt);
+		 this.spriteGirl.UpdateSprite(dt);
 	},
 
 	onTouchBegan:function(touch, event) {
@@ -122,18 +119,11 @@ var GameLayer = cc.Layer.extend({
 		if(target.spriteGirl.state == 0) {
 			target.spriteGirl.state = 1;
 			target.StartClouds();
+			cc.director.resume();
 		}
 		target.spriteGirl.SetStartSpeed();
 
 		return false;
-	},
-
-	onTouchMoved:function(touch, event) {
-		var tp = touch.getLocation();
-	},
-
-	onTouchEnded:function(touch, event) {
-		var tp = touch.getLocation();
 	},
 
 	AddCloud:function(speed, position, scale, zIndex, name, XOffset) {
@@ -207,23 +197,33 @@ var GameLayer = cc.Layer.extend({
 	},
 
 	onKeyDown: function( keyCode, event ) {
-		if(keyCode = cc.KEY.space) {
+		if(keyCode == 32) {
 			this.shooting();
+		}if(keyCode == 82) {
+			cc.director.pushScene(new StartMenu());
 		}
 	},
 
 	EndGame: function() {
-
 			this.textField2 = cc.LabelTTF.create("GAME OVER", "Cambria", 150);
-			this.textField2.setPosition( cc.p( 500, 400));
+			this.textField2.setPosition( cc.p( 500, 560));
 			this.textField2.setColor( new cc.color(255,255,255));
 			this.addChild(this.textField2 , 1 );
+			this.textField4 = cc.LabelTTF.create("Press SpaceBar then,", "Cambria", 60) ;
+			this.textField4.setPosition( cc.p( 500, 460));
+			this.textField4.setColor( new cc.color(255,255,255));
+			this.addChild(this.textField4 , 1 );
+			this.textField3 = cc.LabelTTF.create("Press 'R' to Restart", "Cambria", 72) ;
+			this.textField3.setPosition( cc.p( 500, 380));
+			this.textField3.setColor( new cc.color(255,255,255));
+			this.addChild(this.textField3 , 1 );
 	}
 });
 
 var StateGame = cc.Scene.extend({
 	onEnter: function() {
 		this._super();
+		  cc.director.resume();
 		var layer = new GameLayer();
 		layer.init();
 		this.addChild( layer );

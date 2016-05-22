@@ -18,7 +18,8 @@ var HowToPlay = cc.Sprite.extend({
   },
 
   onKeyDown: function (keyCode, event) {
-    if (keyCode == 32)
+    if (keyCode == 32){
     cc.director.pushScene(new StateGame());
   }
+}
 });
