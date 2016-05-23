@@ -38,7 +38,7 @@ var GameLayer = cc.Layer.extend({
 							this.addChild(this.textField5 , 1 );
 
 							this.score = cc.LabelTTF.create("Score: " + count , "Cambria", 40) ;
-							this.score.setPosition( cc.p( 870, 600));
+							this.score.setPosition( cc.p( 850, 600));
 							this.score.setColor( new cc.color(0,0,0));
 							this.addChild(this.score , 1 );
 
