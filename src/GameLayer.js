@@ -250,14 +250,14 @@ var StartScene = cc.Scene.extend({
 });
 
 GameLayer.STATES = {
-	FRONT : 1 ,
-	STARTED : 2 ,
-	PAUSED : 3,
+		FRONT : 1 ,
+		STARTED : 2 ,
+		PAUSED : 3,
 };
 
 GameLayer.SETOFBUBBLES = {
-	Green : 3 ,
-	Orange : 3 ,
-	Pink : 3 ,
-	Blue : 3
+		Green : 3 ,
+		Orange : 3 ,
+		Pink : 3 ,
+		Blue : 3
 };
