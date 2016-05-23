@@ -1,40 +1,47 @@
 var ArrayClouds = [];
 var ArrayBubble = [];
 var ArrayFlower = [];
+var count = 0;
 
 var GameLayer = cc.Layer.extend({
 
 	init:function() {
-					this._super();
-		 			cc.audioEngine.playMusic('res/Musics/HappyWhistling.mp3', true)
-					this.scheduleUpdate();
-					this.addKeyboardHandlers();
-					var size = cc.director.getWinSize();
-					this.schedule(this.CreateBubbles,1,Infinity,1);
-					var check = true ;
-					var bgsprite = cc.Sprite.create(res.BG_IMAGE);
-					bgsprite.setPosition(size.width / 2, size.height / 2);
-					this.addChild(bgsprite, 0);
+							this._super();
+		 					cc.audioEngine.playMusic('res/Musics/HappyWhistling.mp3', true)
+							this.scheduleUpdate();
+							this.addKeyboardHandlers();
+							var size = cc.director.getWinSize();
+							this.schedule(this.CreateBubbles,1,Infinity,1);
+							var check = true ;
+							var bgsprite = cc.Sprite.create(res.BG_IMAGE);
+							bgsprite.setPosition(size.width / 2, size.height / 2);
+							this.addChild(bgsprite, 0);
 
-					this.floor = cc.Sprite.create(res.FLOOR_IMAGE);
-					this.floor.setPosition(0, 0);
-					this.floor.setAnchorPoint(0,0);
-					this.addChild(this.floor, 40);
+							this.floor = cc.Sprite.create(res.FLOOR_IMAGE);
+							this.floor.setPosition(0, 0);
+							this.floor.setAnchorPoint(0,0);
+							this.addChild(this.floor, 40);
 
-					this.spriteGirl = new Sprite();
-					this.spriteGirl.x = 150;
-					this.spriteGirl.y = size.height / 2;
-					this.spriteGirl.topOfScreen = size.height;
-					this.spriteGirl.Reset();
-					this.addChild(this.spriteGirl, 100);
+							this.spriteGirl = new Sprite();
+							this.spriteGirl.x = 150;
+							this.spriteGirl.y = size.height / 2;
+							this.spriteGirl.topOfScreen = size.height;
+							this.spriteGirl.Reset();
+							this.addChild(this.spriteGirl, 100);
 
-					this.flower = new Flower();
-					this.Create();
+							this.flower = new Flower();
+							this.Create();
 
-					this.textField5 = cc.LabelTTF.create("Press left-mouse to start", "Cambria", 72) ;
-					this.textField5.setPosition( cc.p( 500, 460));
-					this.textField5.setColor( new cc.color(255,255,255));
-					this.addChild(this.textField5 , 1 );
+							this.textField5 = cc.LabelTTF.create("Press left-mouse to start", "Cambria", 72) ;
+							this.textField5.setPosition( cc.p( 500, 460));
+							this.textField5.setColor( new cc.color(255,255,255));
+							this.addChild(this.textField5 , 1 );
+
+							this.score = cc.LabelTTF.create("Score: " + count , "Cambria", 40) ;
+							this.score.setPosition( cc.p( 870, 600));
+							this.score.setColor( new cc.color(0,0,0));
+							this.addChild(this.score , 1 );
+
 	},
 
 	isHitBubble: function() {
@@ -42,6 +49,9 @@ var GameLayer = cc.Layer.extend({
 							for(var j = 0 ; j < ArrayFlower.length ; j++) {
 							var close = this.closeTo(ArrayFlower[j],ArrayBubble[i]) ;
 							if(close) {
+									count++ ;
+									console.log('score: ' + count);
+									this.score.setString("Score: " + count) ;
 									this.removeChild(ArrayFlower[j]);
 									ArrayFlower.splice(j,1) ;
 									this.removeChild(ArrayBubble[i]);
@@ -54,13 +64,13 @@ var GameLayer = cc.Layer.extend({
 	},
 
 	shooting: function() {
-					this.flower = new Flower();
-					this.flower.setPosition(new cc.Point(this.spriteGirl.getPositionX(), this.spriteGirl.getPositionY()));
-					this.addChild(this.flower);
-					this.flower.scheduleUpdate();
-					ArrayFlower.push(this.flower);
-					if(this.flower.getPositionX() > 980)
-					this.removeChild(this.flower);
+							this.flower = new Flower();
+							this.flower.setPosition(new cc.Point(this.spriteGirl.getPositionX(), this.spriteGirl.getPositionY()));
+							this.addChild(this.flower);
+							this.flower.scheduleUpdate();
+							ArrayFlower.push(this.flower);
+							if(this.flower.getPositionX() > 980)
+							this.removeChild(this.flower);
 	},
 
 
@@ -89,7 +99,7 @@ var GameLayer = cc.Layer.extend({
 	update: function(dt) {
 					if(this.check = true){
 						this.isHitBubble();
-							this.isHitSprite();
+						this.isHitSprite();
 		}
 	},
 
@@ -121,90 +131,90 @@ var GameLayer = cc.Layer.extend({
 							target.StartClouds();
 							cc.director.resume();
 						}
-					target.spriteGirl.SetStartSpeed();
-					return false;
+						target.spriteGirl.SetStartSpeed();
+						return false;
 	},
 
 	AddCloud:function(speed, position, scale, zIndex, name, XOffset) {
-					var screenSize = cc.director.getWinSize();
-					var cloud = new CloudSprite(name);
-					cloud.SetSpeedAndWidth(speed, screenSize.width, XOffset);
-					cloud.x = position.x;
-					cloud.y = position.y;
-					cloud.setScale(scale);
-					this.addChild(cloud, zIndex);
-					ArrayClouds[ArrayClouds.length] = cloud;
+						var screenSize = cc.director.getWinSize();
+						var cloud = new CloudSprite(name);
+						cloud.SetSpeedAndWidth(speed, screenSize.width, XOffset);
+						cloud.x = position.x;
+						cloud.y = position.y;
+						cloud.setScale(scale);
+						this.addChild(cloud, zIndex);
+						ArrayClouds[ArrayClouds.length] = cloud;
 	},
 
 	CreateMountsAndTrees: function() {
-					FileName = res.MOUNT_IMAGE;
-					this.AddCloud(30, cc.p(300,170), 0.8, 30, FileName, 300);
-					this.AddCloud(30, cc.p(800,170), 0.8, 30, FileName, 300);
+						FileName = res.MOUNT_IMAGE;
+						this.AddCloud(30, cc.p(300,170), 0.8, 30, FileName, 300);
+						this.AddCloud(30, cc.p(800,170), 0.8, 30, FileName, 300);
 
-					FileName = res.TREE_IMAGE;
-					this.AddCloud(70, cc.p(128,72), 1.0, 50, FileName, 100);
-					this.AddCloud(70, cc.p(624,72), 1.0, 50, FileName, 100);
-					this.AddCloud(70, cc.p(864,72), 1.0, 50, FileName, 100);
+						FileName = res.TREE_IMAGE;
+						this.AddCloud(70, cc.p(128,72), 1.0, 50, FileName, 100);
+						this.AddCloud(70, cc.p(624,72), 1.0, 50, FileName, 100);
+						this.AddCloud(70, cc.p(864,72), 1.0, 50, FileName, 100);
 	},
 
 	CreateClouds: function() {
-					var FileName = res.CLOUD_IMAGE;
-					this.AddCloud(13.0, cc.p(700,610), 0.4, 10, FileName, 100);
-					this.AddCloud(13.0, cc.p(150,570), 0.4, 10, FileName, 100);
+						var FileName = res.CLOUD_IMAGE;
+						this.AddCloud(13.0, cc.p(700,610), 0.4, 10, FileName, 100);
+						this.AddCloud(13.0, cc.p(150,570), 0.4, 10, FileName, 100);
 
-					this.AddCloud(53.0, cc.p(150,300), 0.85, 20, FileName, 100);
-					this.AddCloud(53.0, cc.p(400,500), 0.85, 20, FileName, 100);
-					this.AddCloud(53.0, cc.p(880,400), 0.85, 20, FileName, 100);
+						this.AddCloud(53.0, cc.p(150,300), 0.85, 20, FileName, 100);
+						this.AddCloud(53.0, cc.p(400,500), 0.85, 20, FileName, 100);
+						this.AddCloud(53.0, cc.p(880,400), 0.85, 20, FileName, 100);
 	},
 
 	CreateBubbles: function(){
-						this.bubble = new Bubbles(100);
-						this.bubble.RandomBubbles();
-						this.bubble.setPosition( new cc.Point(1020 , Math.random()*600 ) );
-						this.addChild(this.bubble);
-						ArrayBubble.push(this.bubble);
-						this.bubble.scheduleUpdate();
-						console.log('bubble: ' + ArrayBubble.length);
+							this.bubble = new Bubbles(100);
+							this.bubble.RandomBubbles();
+							this.bubble.setPosition( new cc.Point(1020 , Math.random()*600 ) );
+							this.addChild(this.bubble);
+							ArrayBubble.push(this.bubble);
+							this.bubble.scheduleUpdate();
 	},
 
 	Create:function() {
-					this.CreateClouds();
-					this.CreateMountsAndTrees();
-					this.CreateBubbles();
+							this.CreateClouds();
+							this.CreateMountsAndTrees();
+							this.CreateBubbles();
 	},
 
 	StartClouds: function() {
-					this.textField5.setVisible(false);
-					for (var i = 0 ; i < ArrayClouds.length ; ++i) {
+						this.textField5.setVisible(false);
+						for (var i = 0 ; i < ArrayClouds.length ; ++i) {
 							ArrayClouds[i].Start();
 						}
 	},
 
 	StopClouds: function() {
-					for (var i = 0 ; i < ArrayClouds.length ; ++i) {
-						ArrayClouds[i].Stop();
+						for (var i = 0 ; i < ArrayClouds.length ; ++i) {
+							ArrayClouds[i].Stop();
 					}
 	},
 
 	addKeyboardHandlers: function() {
-						var self = this;
-						cc.eventManager.addListener({
+							var self = this;
+							cc.eventManager.addListener({
 							event: cc.EventListener.KEYBOARD,
 							onKeyPressed : function( keyCode, event ) {
-								self.onKeyDown( keyCode, event );
-							},
-						}, this);
+							self.onKeyDown( keyCode, event );
+								},
+							}, this);
 	},
 
 	onKeyDown: function( keyCode, event ) {
-						if(keyCode == 32) {
-						this.shooting();
-					}if(keyCode == 82) {
-						cc.director.pushScene(new StartMenu());
+							if(keyCode == 32) {
+							this.shooting();
+							}if(keyCode == 82) {
+							cc.director.pushScene(new StartMenu());
 					}
 	},
 
 	EndGame: function() {
+							count = 0 ;
 							this.textField2 = cc.LabelTTF.create("GAME OVER", "Cambria", 150);
 							this.textField2.setPosition( cc.p( 500, 560));
 							this.textField2.setColor( new cc.color(255,255,255));
@@ -221,21 +231,21 @@ var GameLayer = cc.Layer.extend({
 });
 
 var StateGame = cc.Scene.extend({
-						onEnter: function() {
-						this._super();
-		  			cc.director.resume();
-						var layer = new GameLayer();
-						layer.init();
-						this.addChild( layer );
+							onEnter: function() {
+							this._super();
+		  				cc.director.resume();
+							var layer = new GameLayer();
+							layer.init();
+							this.addChild( layer );
 					},
 });
 
 
 var StartScene = cc.Scene.extend({
-				onEnter: function() {
-					this._super();
-					var layer = new StartMenu();
-					this.addChild( layer );
+							onEnter: function() {
+							this._super();
+							var layer = new StartMenu();
+							this.addChild( layer );
 	},
 });
 
