@@ -10,4 +10,4 @@ Drifting Bubbles game is a game for one player. You will play in the role of a g
 5. When you shoot bubbles, your score will show in right-hand side.
 6. There is no game timing which means you can play as long as you are not hit by any bubbles.
 
-# Create by emmytyro9
+# Created by emmytyro9
